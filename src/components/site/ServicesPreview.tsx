@@ -3,10 +3,12 @@
 import Link from "next/link";
 import ServiceCard from "./ServiceCard";
 import InfiniteCarousel from "./InfiniteCarousel";
-import type { CatalogService } from "@/lib/types";
+import type { Catalog } from "@/lib/types";
+import { useLiveCatalog } from "@/lib/use-live-catalog";
 
-export default function ServicesPreview({ services }: { services: CatalogService[] }) {
-  const featured = services.filter((s) => s.active);
+export default function ServicesPreview({ catalog: initialCatalog }: { catalog: Catalog }) {
+  const catalog = useLiveCatalog(initialCatalog);
+  const featured = catalog.services.filter((s) => s.active);
 
   return (
     <section id="servicos" className="bg-cream-deep py-20">

@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import ServiceCard from "./ServiceCard";
 import type { Catalog } from "@/lib/types";
+import { useLiveCatalog } from "@/lib/use-live-catalog";
 
-export default function ServicesCatalog({ catalog }: { catalog: Catalog }) {
+export default function ServicesCatalog({ catalog: initialCatalog }: { catalog: Catalog }) {
+  const catalog = useLiveCatalog(initialCatalog);
   const activeCategories = catalog.categories
     .filter((c) => c.active && catalog.services.some((s) => s.categoryId === c.id && s.active))
     .sort((a, b) => a.order - b.order);

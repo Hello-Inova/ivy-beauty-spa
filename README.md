@@ -56,9 +56,15 @@ Actions").
 **Limitações do modo demonstração** (inerentes a um site 100% estático):
 - Os dados ficam salvos só naquele navegador — não há um banco compartilhado
   entre visitantes, e limpar os dados do site apaga os agendamentos feitos.
-- Um serviço criado pelo painel administrativo *depois* do build não recebe
-  uma página de detalhe própria (`/servicos/[slug]`), pois páginas estáticas
-  só existem para os slugs conhecidos no momento do build.
+- Edições em um serviço/profissional *já existente* no build (nome, fotos,
+  preço etc.) aparecem no site normalmente — as páginas públicas relevantes
+  se re-hidratam com os dados do `localStorage` assim que carregam no
+  navegador (`useLiveCatalog`). Isso vale só para aquele navegador: outra
+  pessoa acessando o mesmo link não vê essas alterações.
+- Um serviço **criado** pelo painel administrativo *depois* do build não
+  recebe uma página de detalhe própria (`/servicos/[slug]`), pois páginas
+  estáticas só existem para os slugs conhecidos no momento do build — ele
+  aparece na listagem, mas o link individual dá 404.
 - Não há login real: as "credenciais" de admin ficam guardadas no
   `localStorage`, apenas para simular o fluxo — não use isso com dados
   reais.

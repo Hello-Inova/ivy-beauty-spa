@@ -18,6 +18,7 @@ import { professionalWorksOnDate, todayISO } from "@/lib/availability";
 import { formatBRL, formatDateLong, formatDuration } from "@/lib/format";
 import { whatsappLink, bookingConfirmationMessage } from "@/lib/whatsapp";
 import { withBasePath } from "@/lib/demo-mode";
+import { useLiveCatalog } from "@/lib/use-live-catalog";
 import Calendar from "./Calendar";
 
 const STEP_LABELS = ["Serviço", "Profissional", "Data", "Horário", "Seus dados", "Confirmação"];
@@ -29,7 +30,8 @@ function digitsOnly(v: string) {
   return v.replace(/\D/g, "");
 }
 
-export default function BookingWizard({ catalog }: { catalog: Catalog }) {
+export default function BookingWizard({ catalog: initialCatalog }: { catalog: Catalog }) {
+  const catalog = useLiveCatalog(initialCatalog);
   const searchParams = useSearchParams();
   const preselected = searchParams.get("servico");
 
