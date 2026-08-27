@@ -59,9 +59,9 @@ export default function ServicesPage() {
         </select>
       </div>
 
-      <div className="card-ivy mt-6 overflow-x-auto">
+      <div className="card-ivy mt-6 max-h-[65vh] overflow-auto">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-charcoal/10 text-xs uppercase tracking-wide text-charcoal-soft">
+          <thead className="sticky top-0 z-10 border-b border-charcoal/10 bg-ivory text-xs uppercase tracking-wide text-charcoal-soft">
             <tr>
               <th className="px-5 py-3">Serviço</th>
               <th className="px-5 py-3">Categoria</th>
