@@ -11,6 +11,9 @@ import { formatBRL, formatDuration, slugify } from "@/lib/format";
 export default function ServicesPage() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [editing, setEditing] = useState<CatalogService | "new" | null>(null);
+  const [query, setQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"" | "active" | "inactive">("");
 
   async function refresh() {
     setCatalog(await bookingClient.getCatalog());
@@ -18,6 +21,11 @@ export default function ServicesPage() {
   useEffect(() => {
     refresh();
   }, []);
+
+  const filtered = (catalog?.services ?? [])
+    .filter((s) => (categoryFilter ? s.categoryId === categoryFilter : true))
+    .filter((s) => (statusFilter === "active" ? s.active : statusFilter === "inactive" ? !s.active : true))
+    .filter((s) => (query.trim() ? s.name.toLowerCase().includes(query.trim().toLowerCase()) : true));
 
   return (
     <div>
@@ -29,6 +37,26 @@ export default function ServicesPage() {
         <button onClick={() => setEditing("new")} className="btn-primary !py-2.5 text-sm">
           <Plus size={16} /> Novo serviço
         </button>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Buscar por nome do serviço..."
+          className="w-full max-w-sm rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep"
+        />
+        <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="rounded-xl border border-charcoal/15 px-3 py-2.5 text-sm">
+          <option value="">Todas as categorias</option>
+          {catalog?.categories.map((c) => (
+            <option key={c.id} value={c.id}>{c.name}</option>
+          ))}
+        </select>
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)} className="rounded-xl border border-charcoal/15 px-3 py-2.5 text-sm">
+          <option value="">Todos os status</option>
+          <option value="active">Ativos</option>
+          <option value="inactive">Inativos</option>
+        </select>
       </div>
 
       <div className="card-ivy mt-6 overflow-x-auto">
@@ -44,10 +72,10 @@ export default function ServicesPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-charcoal/10">
-            {catalog && catalog.services.length === 0 && (
-              <tr><td colSpan={6} className="px-5 py-8 text-center text-charcoal-soft">Nenhum serviço cadastrado.</td></tr>
+            {catalog && filtered.length === 0 && (
+              <tr><td colSpan={6} className="px-5 py-8 text-center text-charcoal-soft">Nenhum serviço encontrado.</td></tr>
             )}
-            {catalog?.services.map((s) => (
+            {filtered.map((s) => (
               <tr key={s.id}>
                 <td className="px-5 py-3 font-medium text-charcoal">{s.name}</td>
                 <td className="px-5 py-3 text-charcoal-soft">{s.categoryName}</td>

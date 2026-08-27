@@ -7,7 +7,7 @@ import { withBasePath } from "@/lib/demo-mode";
 
 export default function ServiceCard({ service }: { service: CatalogService }) {
   return (
-    <div className="card-ivy group flex flex-col overflow-hidden transition-shadow hover:shadow-[0_8px_30px_-8px_rgba(46,42,40,0.25)]">
+    <div className="card-ivy group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-[0_8px_30px_-8px_rgba(46,42,40,0.25)]">
       <Link href={`/servicos/${service.slug}`} className="relative block aspect-[4/3] overflow-hidden">
         <Image
           src={withBasePath(service.image || "/images/placeholders/svc-spa-1.png")}

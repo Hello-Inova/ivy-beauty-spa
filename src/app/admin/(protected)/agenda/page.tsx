@@ -39,6 +39,7 @@ export default function AgendaPage() {
   const [statusFilter, setStatusFilter] = useState<AppointmentStatus | "">("");
   const [range, setRange] = useState<"today" | "week" | "all">("week");
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
 
   async function refresh() {
     setLoading(true);
@@ -63,13 +64,24 @@ export default function AgendaPage() {
   }, [statusFilter, range]);
 
   const grouped = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const filtered = q
+      ? appointments.filter(
+          (a) =>
+            a.customerName.toLowerCase().includes(q) ||
+            a.serviceName.toLowerCase().includes(q) ||
+            a.professionalName.toLowerCase().includes(q) ||
+            a.customerWhatsapp.includes(q) ||
+            a.code.toLowerCase().includes(q)
+        )
+      : appointments;
     const map = new Map<string, AppointmentRecord[]>();
-    for (const a of appointments) {
+    for (const a of filtered) {
       if (!map.has(a.date)) map.set(a.date, []);
       map.get(a.date)!.push(a);
     }
     return Array.from(map.entries()).sort((a, b) => b[0].localeCompare(a[0]));
-  }, [appointments]);
+  }, [appointments, query]);
 
   async function setStatus(id: string, status: AppointmentStatus) {
     await bookingClient.updateAppointmentStatus(id, status);
@@ -100,6 +112,12 @@ export default function AgendaPage() {
           <p className="mt-1 text-sm text-charcoal-soft">Confirme, cancele, reagende ou marque atendimentos como concluídos.</p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar por cliente, serviço, profissional..."
+            className="w-full max-w-xs rounded-xl border border-charcoal/15 px-4 py-2 text-sm outline-none focus:border-rose-deep"
+          />
           <select value={range} onChange={(e) => setRange(e.target.value as typeof range)} className="rounded-xl border border-charcoal/15 px-3 py-2 text-sm">
             <option value="today">Hoje</option>
             <option value="week">Esta semana</option>

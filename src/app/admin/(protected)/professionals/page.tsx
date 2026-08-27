@@ -15,6 +15,8 @@ export default function ProfessionalsPage() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [editing, setEditing] = useState<CatalogProfessional | "new" | null>(null);
   const [editingHours, setEditingHours] = useState<CatalogProfessional | null>(null);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"" | "active" | "inactive">("");
 
   async function refresh() {
     setCatalog(await bookingClient.getCatalog());
@@ -22,6 +24,10 @@ export default function ProfessionalsPage() {
   useEffect(() => {
     refresh();
   }, []);
+
+  const filtered = (catalog?.professionals ?? [])
+    .filter((p) => (statusFilter === "active" ? p.active : statusFilter === "inactive" ? !p.active : true))
+    .filter((p) => (query.trim() ? p.name.toLowerCase().includes(query.trim().toLowerCase()) : true));
 
   return (
     <div>
@@ -35,8 +41,26 @@ export default function ProfessionalsPage() {
         </button>
       </div>
 
+      <div className="mt-4 flex flex-wrap gap-2">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Buscar por nome..."
+          className="w-full max-w-sm rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep"
+        />
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)} className="rounded-xl border border-charcoal/15 px-3 py-2.5 text-sm">
+          <option value="">Todos os status</option>
+          <option value="active">Ativas</option>
+          <option value="inactive">Inativas</option>
+        </select>
+      </div>
+
+      {catalog && filtered.length === 0 && (
+        <p className="mt-6 text-center text-sm text-charcoal-soft">Nenhuma profissional encontrada.</p>
+      )}
+
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {catalog?.professionals.map((p) => (
+        {filtered.map((p) => (
           <div key={p.id} className="card-ivy p-4">
             <div className="flex items-center gap-3">
               <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full">
