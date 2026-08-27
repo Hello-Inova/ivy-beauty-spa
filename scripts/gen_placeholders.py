@@ -30,7 +30,23 @@ PALETTE = {
     "white": (255, 255, 255),
 }
 
+_FONT_DIRS = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+]
+
 def font(size, bold=False):
+    # PIL's bitmap default font can't render accented Portuguese characters
+    # (á, ã, ç, í...) — use a real TTF that supports Latin Extended instead.
+    candidates = [p for p in _FONT_DIRS if ("Bold" in p) == bold] or _FONT_DIRS
+    for path in candidates:
+        if os.path.exists(path):
+            try:
+                return ImageFont.truetype(path, size)
+            except OSError:
+                continue
     try:
         return ImageFont.load_default(size=size)
     except TypeError:
@@ -162,44 +178,12 @@ od.ellipse([700, -200, 1400, 400], fill=(255, 255, 255, 10))
 hero = Image.alpha_composite(hero.convert("RGBA"), overlay).convert("RGB")
 save(hero, "hero")
 
-# ---- Logo (transparent wordmark) ----
-logo = Image.new("RGBA", (900, 260), (0, 0, 0, 0))
-d = ImageDraw.Draw(logo)
-leaf_icon(d, 90, 130, 46, PALETTE["rose_deep"])
-f = font(72)
-d.text((160, 78), "Ivy", fill=PALETTE["charcoal"], font=f)
-f2 = font(26)
-d.text((162, 168), "BEAUTY & SPA", fill=PALETTE["rose_deep"], font=f2)
-logo.save(os.path.join(OUT, "..", "logo.png"))
-print("wrote logo.png")
-
-# ---- Favicon / touch icons ----
-def icon(size):
-    img = diag_gradient(size, size, PALETTE["rose_deep"], PALETTE["rose_gold"])
-    d = ImageDraw.Draw(img)
-    leaf_icon(d, size // 2, int(size * 0.42), size * 0.16, PALETTE["white"])
-    f = font(int(size * 0.30))
-    dd = ImageDraw.Draw(img)
-    bbox = dd.textbbox((0, 0), "I", font=f)
-    w = bbox[2] - bbox[0]
-    dd.text((size / 2 - w / 2, size * 0.5), "I", fill=PALETTE["white"], font=f)
-    return img
-
-icon(512).save(os.path.join(OUT, "..", "icon-512.png"))
-icon(180).save(os.path.join(OUT, "..", "apple-touch-icon.png"))
-icon(32).save(os.path.join(OUT, "..", "favicon-32.png"))
-fav = icon(32)
-fav.save(os.path.join(OUT, "..", "..", "favicon.ico"), format="ICO", sizes=[(32,32)])
-print("wrote icons")
-
-# ---- OG image ----
-og = diag_gradient(1200, 630, PALETTE["rose_deep"], PALETTE["charcoal"])
-d = ImageDraw.Draw(og)
-leaf_icon(d, 1200 // 2, 630 // 2 - 90, 50, PALETTE["white"])
-add_center_text(og, ["Ivy Beauty e Spa"], PALETTE["white"], 58, y_offset=10)
-add_center_text(og, ["Agende online seu horário de beleza e bem-estar"], (255,255,255), 24, y_offset=90)
-save_path = os.path.join(OUT, "..", "og-image.png")
-og.save(save_path, "PNG")
-print("wrote", save_path)
+# ---- Logo / favicons / OG image: NOT generated here anymore. ----
+# The client provided their real logo (a circular emblem), so those assets
+# are now produced by scripts/apply_real_logo.py from that source image
+# instead of this placeholder generator. Re-running this script will not
+# touch public/images/logo.png, favicon.ico, apple-touch-icon.png,
+# icon-512.png, favicon-32.png or og-image.png — only the service/
+# professional/gallery/hero placeholders above.
 
 print("DONE")

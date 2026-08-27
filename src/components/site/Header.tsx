@@ -23,7 +23,7 @@ export default function Header() {
       <div className="container-ivy flex h-18 items-center justify-between py-3">
         <Link href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={withBasePath("/images/logo.png")} alt="Ivy Beauty e Spa" className="h-10 w-auto sm:h-11" />
+          <img src={withBasePath("/images/logo.png")} alt="Ivy Beauty e Spa" className="h-11 w-auto sm:h-12" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="container-ivy grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={withBasePath("/images/logo.png")} alt="Ivy Beauty e Spa" className="h-10 w-auto brightness-0 invert opacity-90" />
+          <img src={withBasePath("/images/logo.png")} alt="Ivy Beauty e Spa" className="h-12 w-auto" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">{BUSINESS_INFO.tagline}</p>
         </div>
 
