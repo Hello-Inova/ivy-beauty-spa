@@ -1,23 +1,16 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Sparkles } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/seed-data";
 import { withBasePath } from "@/lib/demo-mode";
+import HeroBackground from "./HeroBackground";
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-charcoal">
-      <div className="absolute inset-0">
-        <Image
-          src={withBasePath("/images/placeholders/hero.png")}
-          alt="Ivy Beauty e Spa — imagem de destaque demonstrativa"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/20" />
-      </div>
+      <HeroBackground
+        src={withBasePath("/images/loja/fachada-recepcao.jpg")}
+        alt="Fachada e recepção do Ivy Beauty & Spa"
+      />
 
       <div className="container-ivy relative flex min-h-[86vh] flex-col items-start justify-end gap-6 py-20 sm:min-h-[80vh] sm:items-center sm:text-center">
         <span className="eyebrow flex items-center gap-2 text-blush">
