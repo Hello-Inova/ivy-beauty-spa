@@ -5,6 +5,7 @@ import { Camera } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/seed-data";
 import { getCatalog } from "@/lib/catalog.server";
 import { ensureDynamic } from "@/lib/force-dynamic.server";
+import { withBasePath } from "@/lib/demo-mode";
 
 export const metadata: Metadata = {
   title: "Sobre nós",
@@ -28,7 +29,7 @@ export default async function SobrePage() {
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {["/images/placeholders/gallery-1.png", "/images/placeholders/gallery-2.png", "/images/placeholders/gallery-7.png"].map((src) => (
             <div key={src} className="relative aspect-square overflow-hidden rounded-2xl">
-              <Image src={src} alt="Ambiente Ivy Beauty e Spa (imagem demonstrativa)" fill sizes="33vw" className="object-cover" />
+              <Image src={withBasePath(src)} alt="Ambiente Ivy Beauty e Spa (imagem demonstrativa)" fill sizes="33vw" className="object-cover" />
             </div>
           ))}
         </div>
@@ -43,7 +44,7 @@ export default async function SobrePage() {
               {professionals.map((p) => (
                 <div key={p.id} className="text-center">
                   <div className="relative mx-auto aspect-[4/5] w-full max-w-[180px] overflow-hidden rounded-2xl">
-                    <Image src={p.photo || "/images/placeholders/pro-1.png"} alt={p.name} fill sizes="180px" className="object-cover" />
+                    <Image src={withBasePath(p.photo || "/images/placeholders/pro-1.png")} alt={p.name} fill sizes="180px" className="object-cover" />
                   </div>
                   <h3 className="mt-3 font-display text-base text-charcoal">{p.name}</h3>
                   {p.description && <p className="mt-1 text-xs text-charcoal-soft">{p.description}</p>}

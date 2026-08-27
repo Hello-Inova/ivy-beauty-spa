@@ -17,6 +17,7 @@ import { bookingClient } from "@/lib/booking-client";
 import { professionalWorksOnDate, todayISO } from "@/lib/availability";
 import { formatBRL, formatDateLong, formatDuration } from "@/lib/format";
 import { whatsappLink, bookingConfirmationMessage } from "@/lib/whatsapp";
+import { withBasePath } from "@/lib/demo-mode";
 import Calendar from "./Calendar";
 
 const STEP_LABELS = ["Serviço", "Profissional", "Data", "Horário", "Seus dados", "Confirmação"];
@@ -172,7 +173,7 @@ export default function BookingWizard({ catalog }: { catalog: Catalog }) {
                   className="card-ivy flex items-center gap-3 p-3 text-left transition-shadow hover:shadow-md"
                 >
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
-                    <Image src={s.image || "/images/placeholders/svc-spa-1.png"} alt={s.name} fill sizes="64px" className="object-cover" />
+                    <Image src={withBasePath(s.image || "/images/placeholders/svc-spa-1.png")} alt={s.name} fill sizes="64px" className="object-cover" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-display text-base text-charcoal">{s.name}</p>
@@ -219,7 +220,7 @@ export default function BookingWizard({ catalog }: { catalog: Catalog }) {
                 className="card-ivy flex items-center gap-3 p-4 text-left transition-shadow hover:shadow-md"
               >
                 <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
-                  <Image src={p.photo || "/images/placeholders/pro-1.png"} alt={p.name} fill sizes="48px" className="object-cover" />
+                  <Image src={withBasePath(p.photo || "/images/placeholders/pro-1.png")} alt={p.name} fill sizes="48px" className="object-cover" />
                 </div>
                 <div>
                   <p className="font-display text-base text-charcoal">{p.name}</p>

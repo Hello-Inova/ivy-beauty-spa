@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { withBasePath } from "@/lib/demo-mode";
 
 export const metadata: Metadata = {
   title: "Galeria",
@@ -33,7 +34,7 @@ export default function GaleriaPage() {
         {GALLERY.map((item, i) => (
           <div key={`${item.src}-${i}`} className="group relative overflow-hidden rounded-2xl break-inside-avoid">
             <Image
-              src={item.src}
+              src={withBasePath(item.src)}
               alt={`${item.label} — imagem demonstrativa`}
               width={700}
               height={700}

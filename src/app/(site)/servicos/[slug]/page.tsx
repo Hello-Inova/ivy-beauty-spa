@@ -7,6 +7,7 @@ import { getCatalog, getAllServiceSlugs } from "@/lib/catalog.server";
 import { formatBRL, formatDuration } from "@/lib/format";
 import { whatsappLink, serviceInquiryMessage } from "@/lib/whatsapp";
 import { ensureDynamic } from "@/lib/force-dynamic.server";
+import { withBasePath } from "@/lib/demo-mode";
 
 // Note: in demo mode (static export) there is no server to render unknown
 // slugs on demand — only the slugs known at build time get a detail page.
@@ -47,7 +48,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
         <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-          <Image src={service.image || "/images/placeholders/svc-spa-1.png"} alt={service.name} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
+          <Image src={withBasePath(service.image || "/images/placeholders/svc-spa-1.png")} alt={service.name} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
         </div>
 
         <div>
@@ -86,7 +87,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 {professionals.map((p) => (
                   <div key={p.id} className="flex items-center gap-2 rounded-full bg-blush-soft py-1.5 pl-1.5 pr-4">
                     <div className="relative h-8 w-8 overflow-hidden rounded-full">
-                      <Image src={p.photo || "/images/placeholders/pro-1.png"} alt={p.name} fill sizes="32px" className="object-cover" />
+                      <Image src={withBasePath(p.photo || "/images/placeholders/pro-1.png")} alt={p.name} fill sizes="32px" className="object-cover" />
                     </div>
                     <span className="text-sm text-charcoal">{p.name}</span>
                   </div>

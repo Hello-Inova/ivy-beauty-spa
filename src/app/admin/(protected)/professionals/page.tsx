@@ -8,6 +8,7 @@ import type { WorkingHourInput } from "@/lib/booking-client";
 import type { Catalog, CatalogProfessional, Weekday } from "@/lib/types";
 import { WEEKDAY_ORDER, WEEKDAY_LABEL } from "@/data/seed-data";
 import Modal from "@/components/admin/Modal";
+import { withBasePath } from "@/lib/demo-mode";
 
 export default function ProfessionalsPage() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
@@ -38,7 +39,7 @@ export default function ProfessionalsPage() {
           <div key={p.id} className="card-ivy p-4">
             <div className="flex items-center gap-3">
               <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full">
-                <Image src={p.photo || "/images/placeholders/pro-1.png"} alt={p.name} fill sizes="56px" className="object-cover" />
+                <Image src={withBasePath(p.photo || "/images/placeholders/pro-1.png")} alt={p.name} fill sizes="56px" className="object-cover" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate font-display text-base text-charcoal">{p.name}</p>
