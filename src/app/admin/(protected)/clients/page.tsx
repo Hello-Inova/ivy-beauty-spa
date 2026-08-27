@@ -39,9 +39,9 @@ export default function ClientsPage() {
         className="mt-4 w-full max-w-sm rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep"
       />
 
-      <div className="card-ivy mt-6 overflow-x-auto">
+      <div className="card-ivy mt-6 max-h-[65vh] overflow-auto">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-charcoal/10 text-xs uppercase tracking-wide text-charcoal-soft">
+          <thead className="sticky top-0 z-10 border-b border-charcoal/10 bg-ivory text-xs uppercase tracking-wide text-charcoal-soft">
             <tr>
               <th className="px-5 py-3">Nome</th>
               <th className="px-5 py-3">WhatsApp</th>
