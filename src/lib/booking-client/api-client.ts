@@ -106,7 +106,7 @@ export class ApiBookingClient implements BookingClient {
     return r.ok ? { ok: true, data: null } : r;
   }
 
-  async createService(data: { categoryId: string; name: string; slug: string; description: string; benefits?: string; importantInfo?: string; duration: number; price: number; image?: string; professionalIds?: string[] }): Promise<Result<string>> {
+  async createService(data: { categoryId: string; name: string; slug: string; description: string; benefits?: string; importantInfo?: string; duration: number; price: number; image?: string; images?: string[]; professionalIds?: string[] }): Promise<Result<string>> {
     const r = await req<{ id: string }>("/api/admin/services", { method: "POST", body: JSON.stringify(data) });
     return r.ok ? { ok: true, data: r.data.id } : r;
   }

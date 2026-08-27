@@ -143,6 +143,28 @@ services = [
 for name, title, c1, c2 in services:
     card_image(name, 800, 560, c1, c2, title)
 
+# ---- Service gallery companions (2 extra photos per category, reused by every
+# service in that category so each service page shows 3 demonstrative photos
+# without needing 48 unique files) ----
+service_gallery_companions = [
+    ("svc-cabelo-b", "Cabelo", PALETTE["rose_gold"], PALETTE["rose"]),
+    ("svc-cabelo-c", "Cabelo", PALETTE["charcoal"], PALETTE["rose_deep"]),
+    ("svc-unhas-b", "Unhas", PALETTE["rose"], PALETTE["blush2"]),
+    ("svc-unhas-c", "Unhas", PALETTE["rose_gold"], PALETTE["rose_deep"]),
+    ("svc-sobrancelha-b", "Sobrancelhas", PALETTE["blush"], PALETTE["rose_gold"]),
+    ("svc-sobrancelha-c", "Sobrancelhas", PALETTE["rose_deep"], PALETTE["blush2"]),
+    ("svc-cilios-b", "Cílios", PALETTE["blush2"], PALETTE["charcoal"]),
+    ("svc-cilios-c", "Cílios", PALETTE["rose"], PALETTE["charcoal"]),
+    ("svc-estetica-b", "Estética Facial", PALETTE["blush2"], PALETTE["sage"]),
+    ("svc-estetica-c", "Estética Facial", PALETTE["cream"], PALETTE["rose_gold"]),
+    ("svc-depilacao-b", "Depilação", PALETTE["rose"], PALETTE["blush"]),
+    ("svc-depilacao-c", "Depilação", PALETTE["blush2"], PALETTE["rose_gold"]),
+    ("svc-spa-b", "Spa", PALETTE["rose_gold"], PALETTE["sage"]),
+    ("svc-spa-c", "Spa", PALETTE["blush2"], PALETTE["cream"]),
+]
+for name, title, c1, c2 in service_gallery_companions:
+    card_image(name, 800, 800, c1, c2, title)
+
 # ---- Professionals (portrait 4:5) ----
 pros = [
     ("pro-1", "Camila R.", PALETTE["rose"], PALETTE["rose_deep"]),

@@ -8,6 +8,7 @@ import type { WorkingHourInput } from "@/lib/booking-client";
 import type { Catalog, CatalogProfessional, Weekday } from "@/lib/types";
 import { WEEKDAY_ORDER, WEEKDAY_LABEL } from "@/data/seed-data";
 import Modal from "@/components/admin/Modal";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 import { withBasePath } from "@/lib/demo-mode";
 
 export default function ProfessionalsPage() {
@@ -149,10 +150,7 @@ function ProfessionalFormModal({
           <label className="text-sm font-medium text-charcoal">Especialidades / descrição</label>
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className="mt-1.5 w-full rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep" />
         </div>
-        <div>
-          <label className="text-sm font-medium text-charcoal">Foto (caminho)</label>
-          <input value={photo} onChange={(e) => setPhoto(e.target.value)} className="mt-1.5 w-full rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep" />
-        </div>
+        <ImageUploadField label="Foto" value={photo} onChange={setPhoto} aspect="aspect-square" />
         {error && <p className="text-sm text-rose-deep">{error}</p>}
         <button type="submit" disabled={saving} className="btn-primary w-full">
           {saving ? "Salvando..." : "Salvar"}

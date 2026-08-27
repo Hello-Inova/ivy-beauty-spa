@@ -42,6 +42,7 @@ function demoCatalog(): Catalog {
       duration: s.duration,
       price: s.price,
       image: s.image,
+      images: s.images,
       active: s.active,
       professionalIds: s.professionalIds,
     };

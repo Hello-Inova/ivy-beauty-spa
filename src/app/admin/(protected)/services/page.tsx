@@ -5,6 +5,7 @@ import { Plus, Pencil, Trash2, Power } from "lucide-react";
 import { bookingClient } from "@/lib/booking-client";
 import type { Catalog, CatalogService } from "@/lib/types";
 import Modal from "@/components/admin/Modal";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 import { formatBRL, formatDuration, slugify } from "@/lib/format";
 
 export default function ServicesPage() {
@@ -127,8 +128,13 @@ function ServiceFormModal({
   const [importantInfo, setImportantInfo] = useState(service?.importantInfo ?? "");
   const [duration, setDuration] = useState(service?.duration ?? 60);
   const [price, setPrice] = useState(service?.price ?? 0);
-  const [image, setImage] = useState(service?.image ?? "/images/placeholders/svc-spa-1.png");
+  const initialImages = service?.images && service.images.length > 0 ? service.images : service?.image ? [service.image] : [];
+  const [images, setImages] = useState<string[]>([initialImages[0] ?? "", initialImages[1] ?? "", initialImages[2] ?? ""]);
   const [professionalIds, setProfessionalIds] = useState<string[]>(service?.professionalIds ?? []);
+
+  function setImageAt(index: number, value: string) {
+    setImages((prev) => prev.map((v, i) => (i === index ? value : v)));
+  }
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -141,6 +147,7 @@ function ServiceFormModal({
     setSaving(true);
     setError(null);
     const finalSlug = slug.trim() || slugify(name);
+    const filledImages = images.map((v) => v.trim()).filter(Boolean);
     const data = {
       categoryId,
       name,
@@ -150,7 +157,8 @@ function ServiceFormModal({
       importantInfo,
       duration: Number(duration),
       price: Number(price),
-      image,
+      image: filledImages[0] ?? "/images/placeholders/svc-spa-1.png",
+      images: filledImages,
       professionalIds,
     };
     const res = service ? await bookingClient.updateService(service.id, data) : await bookingClient.createService(data);
@@ -201,7 +209,7 @@ function ServiceFormModal({
           <textarea value={importantInfo} onChange={(e) => setImportantInfo(e.target.value)} rows={2} className="mt-1.5 w-full rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep" />
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="text-sm font-medium text-charcoal">Duração (min)</label>
             <input type="number" min={5} step={5} value={duration} onChange={(e) => setDuration(Number(e.target.value))} required className="mt-1.5 w-full rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep" />
@@ -210,9 +218,14 @@ function ServiceFormModal({
             <label className="text-sm font-medium text-charcoal">Preço (R$)</label>
             <input type="number" min={0} step={1} value={price} onChange={(e) => setPrice(Number(e.target.value))} required className="mt-1.5 w-full rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep" />
           </div>
-          <div>
-            <label className="text-sm font-medium text-charcoal">Imagem (caminho)</label>
-            <input value={image} onChange={(e) => setImage(e.target.value)} className="mt-1.5 w-full rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep" />
+        </div>
+
+        <div>
+          <label className="text-sm font-medium text-charcoal">Fotos do serviço (até 3)</label>
+          <div className="mt-2 space-y-3 rounded-xl bg-blush-soft/40 p-3">
+            <ImageUploadField label="Foto principal" value={images[0]} onChange={(v) => setImageAt(0, v)} aspect="aspect-[4/3]" />
+            <ImageUploadField label="Foto 2" value={images[1]} onChange={(v) => setImageAt(1, v)} aspect="aspect-[4/3]" />
+            <ImageUploadField label="Foto 3" value={images[2]} onChange={(v) => setImageAt(2, v)} aspect="aspect-[4/3]" />
           </div>
         </div>
 

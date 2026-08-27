@@ -78,6 +78,7 @@ export interface BookingClient {
     duration: number;
     price: number;
     image?: string;
+    images?: string[];
     professionalIds?: string[];
   }): Promise<Result<string>>;
   updateService(id: string, data: Partial<CatalogService> & { professionalIds?: string[] }): Promise<Result<null>>;

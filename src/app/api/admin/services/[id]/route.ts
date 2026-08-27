@@ -15,6 +15,7 @@ const updateSchema = z.object({
   duration: z.number().int().positive().optional(),
   price: z.number().nonnegative().optional(),
   image: z.string().optional(),
+  images: z.array(z.string()).optional(),
   active: z.boolean().optional(),
   professionalIds: z.array(z.string()).optional(),
 });

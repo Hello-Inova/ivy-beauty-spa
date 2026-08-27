@@ -63,6 +63,7 @@ export interface SeedService {
   duration: number; // minutes
   price: number; // BRL
   image: string;
+  images: string[]; // galeria do serviço — 3 fotos demonstrativas (images[0] = mesma foto de `image`)
   active: boolean;
   professionalIds: string[];
 }
@@ -166,6 +167,7 @@ export const SERVICES: SeedService[] = [
     duration: 60,
     price: 120,
     image: "/images/placeholders/svc-cabelo-1.png",
+    images: ["/images/placeholders/svc-cabelo-1.png", "/images/placeholders/svc-cabelo-b.png", "/images/placeholders/svc-cabelo-c.png"],
     active: true,
     professionalIds: ["pro-camila"],
   },
@@ -180,6 +182,7 @@ export const SERVICES: SeedService[] = [
     duration: 120,
     price: 220,
     image: "/images/placeholders/svc-cabelo-2.png",
+    images: ["/images/placeholders/svc-cabelo-2.png", "/images/placeholders/svc-cabelo-b.png", "/images/placeholders/svc-cabelo-c.png"],
     active: true,
     professionalIds: ["pro-camila"],
   },
@@ -194,6 +197,7 @@ export const SERVICES: SeedService[] = [
     duration: 50,
     price: 95,
     image: "/images/placeholders/svc-cabelo-3.png",
+    images: ["/images/placeholders/svc-cabelo-3.png", "/images/placeholders/svc-cabelo-b.png", "/images/placeholders/svc-cabelo-c.png"],
     active: true,
     professionalIds: ["pro-camila"],
   },
@@ -209,6 +213,7 @@ export const SERVICES: SeedService[] = [
     duration: 40,
     price: 45,
     image: "/images/placeholders/svc-unhas-1.png",
+    images: ["/images/placeholders/svc-unhas-1.png", "/images/placeholders/svc-unhas-b.png", "/images/placeholders/svc-unhas-c.png"],
     active: true,
     professionalIds: ["pro-fernanda"],
   },
@@ -223,6 +228,7 @@ export const SERVICES: SeedService[] = [
     duration: 50,
     price: 60,
     image: "/images/placeholders/svc-unhas-2.png",
+    images: ["/images/placeholders/svc-unhas-2.png", "/images/placeholders/svc-unhas-b.png", "/images/placeholders/svc-unhas-c.png"],
     active: true,
     professionalIds: ["pro-fernanda"],
   },
@@ -237,6 +243,7 @@ export const SERVICES: SeedService[] = [
     duration: 90,
     price: 150,
     image: "/images/placeholders/svc-unhas-3.png",
+    images: ["/images/placeholders/svc-unhas-3.png", "/images/placeholders/svc-unhas-b.png", "/images/placeholders/svc-unhas-c.png"],
     active: true,
     professionalIds: ["pro-fernanda"],
   },
@@ -252,6 +259,7 @@ export const SERVICES: SeedService[] = [
     duration: 30,
     price: 45,
     image: "/images/placeholders/svc-sobrancelha-1.png",
+    images: ["/images/placeholders/svc-sobrancelha-1.png", "/images/placeholders/svc-sobrancelha-b.png", "/images/placeholders/svc-sobrancelha-c.png"],
     active: true,
     professionalIds: ["pro-fernanda"],
   },
@@ -266,6 +274,7 @@ export const SERVICES: SeedService[] = [
     duration: 40,
     price: 65,
     image: "/images/placeholders/svc-sobrancelha-2.png",
+    images: ["/images/placeholders/svc-sobrancelha-2.png", "/images/placeholders/svc-sobrancelha-b.png", "/images/placeholders/svc-sobrancelha-c.png"],
     active: true,
     professionalIds: ["pro-fernanda"],
   },
@@ -281,6 +290,7 @@ export const SERVICES: SeedService[] = [
     duration: 120,
     price: 180,
     image: "/images/placeholders/svc-cilios-1.png",
+    images: ["/images/placeholders/svc-cilios-1.png", "/images/placeholders/svc-cilios-b.png", "/images/placeholders/svc-cilios-c.png"],
     active: true,
     professionalIds: ["pro-beatriz"],
   },
@@ -295,6 +305,7 @@ export const SERVICES: SeedService[] = [
     duration: 60,
     price: 110,
     image: "/images/placeholders/svc-cilios-2.png",
+    images: ["/images/placeholders/svc-cilios-2.png", "/images/placeholders/svc-cilios-b.png", "/images/placeholders/svc-cilios-c.png"],
     active: true,
     professionalIds: ["pro-beatriz"],
   },
@@ -310,6 +321,7 @@ export const SERVICES: SeedService[] = [
     duration: 70,
     price: 140,
     image: "/images/placeholders/svc-estetica-1.png",
+    images: ["/images/placeholders/svc-estetica-1.png", "/images/placeholders/svc-estetica-b.png", "/images/placeholders/svc-estetica-c.png"],
     active: true,
     professionalIds: ["pro-juliana"],
   },
@@ -324,6 +336,7 @@ export const SERVICES: SeedService[] = [
     duration: 45,
     price: 130,
     image: "/images/placeholders/svc-estetica-2.png",
+    images: ["/images/placeholders/svc-estetica-2.png", "/images/placeholders/svc-estetica-b.png", "/images/placeholders/svc-estetica-c.png"],
     active: true,
     professionalIds: ["pro-juliana"],
   },
@@ -339,6 +352,7 @@ export const SERVICES: SeedService[] = [
     duration: 45,
     price: 80,
     image: "/images/placeholders/svc-depilacao-1.png",
+    images: ["/images/placeholders/svc-depilacao-1.png", "/images/placeholders/svc-depilacao-b.png", "/images/placeholders/svc-depilacao-c.png"],
     active: true,
     professionalIds: ["pro-beatriz"],
   },
@@ -353,6 +367,7 @@ export const SERVICES: SeedService[] = [
     duration: 15,
     price: 25,
     image: "/images/placeholders/svc-depilacao-2.png",
+    images: ["/images/placeholders/svc-depilacao-2.png", "/images/placeholders/svc-depilacao-b.png", "/images/placeholders/svc-depilacao-c.png"],
     active: true,
     professionalIds: ["pro-beatriz"],
   },
@@ -368,6 +383,7 @@ export const SERVICES: SeedService[] = [
     duration: 60,
     price: 160,
     image: "/images/placeholders/svc-spa-1.png",
+    images: ["/images/placeholders/svc-spa-1.png", "/images/placeholders/svc-spa-b.png", "/images/placeholders/svc-spa-c.png"],
     active: true,
     professionalIds: ["pro-juliana"],
   },
@@ -382,6 +398,7 @@ export const SERVICES: SeedService[] = [
     duration: 150,
     price: 380,
     image: "/images/placeholders/svc-spa-2.png",
+    images: ["/images/placeholders/svc-spa-2.png", "/images/placeholders/svc-spa-b.png", "/images/placeholders/svc-spa-c.png"],
     active: true,
     professionalIds: ["pro-juliana"],
   },
@@ -415,6 +432,73 @@ export const DEMO_ADMIN = {
   email: "admin@ivybelezaespa.com.br",
   password: "IvySpa@2026", // demo/dev only — trocar em produção
 };
+
+/**
+ * Avaliações de clientes — assim como o restante deste arquivo, são
+ * depoimentos FICTÍCIOS criados apenas para demonstrar a seção de
+ * avaliações. Substitua por avaliações reais (Google, Instagram etc.) no
+ * conteúdo real do site. Cada card na tela exibe um aviso "Avaliação
+ * demonstrativa" para deixar isso claro aos visitantes.
+ */
+export interface SeedTestimonial {
+  id: string;
+  name: string;
+  serviceName: string;
+  rating: number; // 1 a 5
+  quote: string;
+  initials: string;
+}
+
+export const TESTIMONIALS: SeedTestimonial[] = [
+  {
+    id: "dep-1",
+    name: "Marina Costa",
+    serviceName: "Coloração",
+    rating: 5,
+    quote: "Saí completamente renovada! A coloração ficou impecável e o atendimento foi super atencioso do início ao fim.",
+    initials: "MC",
+  },
+  {
+    id: "dep-2",
+    name: "Ana Beatriz Souza",
+    serviceName: "Day Spa Ivy",
+    rating: 5,
+    quote: "Uma experiência de relaxamento completa. O ambiente é lindo e a equipe cuida de cada detalhe.",
+    initials: "AS",
+  },
+  {
+    id: "dep-3",
+    name: "Patrícia Menezes",
+    serviceName: "Design de Sobrancelhas",
+    rating: 5,
+    quote: "Minhas sobrancelhas nunca ficaram tão bem desenhadas. Recomendo demais para quem busca precisão.",
+    initials: "PM",
+  },
+  {
+    id: "dep-4",
+    name: "Camila Torres",
+    serviceName: "Alongamento em Gel",
+    rating: 4,
+    quote: "Unhas lindas e duradouras. Só demorou um pouquinho mais que o esperado, mas o resultado valeu a pena.",
+    initials: "CT",
+  },
+  {
+    id: "dep-5",
+    name: "Juliana Prado",
+    serviceName: "Limpeza de Pele Profunda",
+    rating: 5,
+    quote: "Minha pele agradece! Atendimento cuidadoso e um espaço muito agradável para relaxar.",
+    initials: "JP",
+  },
+  {
+    id: "dep-6",
+    name: "Fernanda Ribeiro",
+    serviceName: "Massagem Relaxante",
+    rating: 5,
+    quote: "Já é minha parada certa depois de semanas corridas. Saio de lá renovada sempre que vou.",
+    initials: "FR",
+  },
+];
 
 export const BUSINESS_INFO = {
   name: "Ivy Beauty e Spa",

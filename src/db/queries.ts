@@ -51,6 +51,7 @@ export async function getCatalog(): Promise<Catalog> {
       duration: s.duration,
       price: Number(s.price),
       image: s.image,
+      images: s.images ?? [],
       active: s.active,
       professionalIds: professionalServices
         .filter((ps) => ps.serviceId === s.id)
@@ -423,6 +424,7 @@ export async function adminCreateService(data: {
   duration: number;
   price: number;
   image?: string;
+  images?: string[];
   professionalIds?: string[];
 }) {
   const id = randomId("svc");
@@ -437,6 +439,7 @@ export async function adminCreateService(data: {
     duration: data.duration,
     price: data.price.toFixed(2),
     image: data.image,
+    images: data.images ?? [],
   });
   if (data.professionalIds?.length) {
     await db.insert(t.professionalServices).values(
@@ -457,6 +460,7 @@ export async function adminUpdateService(
     duration: number;
     price: number;
     image: string;
+    images: string[];
     active: boolean;
     professionalIds: string[];
   }>
