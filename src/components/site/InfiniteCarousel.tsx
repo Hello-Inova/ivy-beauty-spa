@@ -62,6 +62,14 @@ export default function InfiniteCarousel<T>({
     if (e.pointerType === "mouse" && e.button !== 0) return;
     const track = trackRef.current;
     if (!track) return;
+    // Prevent the browser's default mousedown behavior (focusing an inner
+    // link/button, starting a text/image selection) — that default focus
+    // would otherwise trip the `:focus-within` hover-pause rule and leave
+    // the carousel frozen after a drag. The click itself still fires
+    // normally on release for a genuine (non-drag) tap.
+    e.preventDefault();
+    const active = document.activeElement;
+    if (active instanceof HTMLElement && track.contains(active)) active.blur();
     const x = currentTranslateX(track);
     track.style.animation = "none";
     track.style.transform = `translateX(${x}px)`;
