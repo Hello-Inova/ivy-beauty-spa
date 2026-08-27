@@ -11,6 +11,8 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState<CatalogCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<CatalogCategory | "new" | null>(null);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"" | "active" | "inactive">("");
 
   async function refresh() {
     const catalog = await bookingClient.getCatalog();
@@ -22,6 +24,14 @@ export default function CategoriesPage() {
     refresh();
   }, []);
 
+  const filtered = categories
+    .filter((c) => (statusFilter === "active" ? c.active : statusFilter === "inactive" ? !c.active : true))
+    .filter((c) => {
+      const q = query.trim().toLowerCase();
+      if (!q) return true;
+      return c.name.toLowerCase().includes(q) || c.slug.toLowerCase().includes(q);
+    });
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -32,6 +42,20 @@ export default function CategoriesPage() {
         <button onClick={() => setEditing("new")} className="btn-primary !py-2.5 text-sm">
           <Plus size={16} /> Nova categoria
         </button>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Buscar por nome ou slug..."
+          className="w-full max-w-sm rounded-xl border border-charcoal/15 px-4 py-2.5 text-sm outline-none focus:border-rose-deep"
+        />
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)} className="rounded-xl border border-charcoal/15 px-3 py-2.5 text-sm">
+          <option value="">Todos os status</option>
+          <option value="active">Ativas</option>
+          <option value="inactive">Inativas</option>
+        </select>
       </div>
 
       <div className="card-ivy mt-6 overflow-x-auto">
@@ -46,10 +70,10 @@ export default function CategoriesPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-charcoal/10">
-            {!loading && categories.length === 0 && (
-              <tr><td colSpan={5} className="px-5 py-8 text-center text-charcoal-soft">Nenhuma categoria cadastrada.</td></tr>
+            {!loading && filtered.length === 0 && (
+              <tr><td colSpan={5} className="px-5 py-8 text-center text-charcoal-soft">Nenhuma categoria encontrada.</td></tr>
             )}
-            {categories.map((c) => (
+            {filtered.map((c) => (
               <tr key={c.id}>
                 <td className="px-5 py-3 text-charcoal-soft">{c.order}</td>
                 <td className="px-5 py-3 font-medium text-charcoal">{c.name}</td>

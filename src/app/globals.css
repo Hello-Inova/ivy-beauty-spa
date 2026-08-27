@@ -121,3 +121,31 @@ h1, h2, h3, h4, .font-display {
 .animate-fade-in-up {
   animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* Infinite-loop carousels (avaliações, serviços) — see
+ * src/components/site/InfiniteCarousel.tsx. The track renders the item list
+ * twice back-to-back and scrolls exactly 50% of its own width, which loops
+ * seamlessly regardless of how many items or how wide each one is. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll var(--marquee-duration, 36s) linear infinite;
+}
+
+.marquee-track:hover,
+.marquee-track:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}

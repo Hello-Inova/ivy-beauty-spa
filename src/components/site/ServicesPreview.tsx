@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import ServiceCard from "./ServiceCard";
+import InfiniteCarousel from "./InfiniteCarousel";
 import type { CatalogService } from "@/lib/types";
 
 export default function ServicesPreview({ services }: { services: CatalogService[] }) {
-  const featured = services.filter((s) => s.active).slice(0, 6);
+  const featured = services.filter((s) => s.active);
 
   return (
     <section id="servicos" className="bg-cream-deep py-20">
@@ -17,12 +20,17 @@ export default function ServicesPreview({ services }: { services: CatalogService
             Ver todos os serviços →
           </Link>
         </div>
+      </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((service) => (
-            <ServiceCard key={service.id} service={service} />
-          ))}
-        </div>
+      <div className="container-ivy mt-10">
+        <InfiniteCarousel
+          items={featured}
+          keyExtractor={(service, i) => `${service.id}-${i}`}
+          ariaLabel="Nossos serviços"
+          durationSeconds={46}
+          itemWidthClassName="w-[280px] sm:w-[320px]"
+          renderItem={(service) => <ServiceCard service={service} />}
+        />
       </div>
     </section>
   );
