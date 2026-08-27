@@ -17,6 +17,7 @@ import {
   index,
   pgEnum,
   primaryKey,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -82,6 +83,9 @@ export const services = pgTable("services", {
   duration: integer("duration").notNull(), // minutes
   price: numeric("price", { precision: 10, scale: 2 }).notNull(),
   image: text("image"),
+  // Galeria do serviço — até 3 fotos demonstrativas exibidas na página do
+  // serviço (images[0] normalmente é a mesma foto de `image`).
+  images: jsonb("images").$type<string[]>().notNull().default([]),
   active: boolean("active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

@@ -49,6 +49,7 @@ async function main() {
       duration: s.duration,
       price: s.price.toFixed(2),
       image: s.image,
+      images: s.images,
       active: s.active,
     }))
   );

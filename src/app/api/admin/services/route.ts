@@ -15,6 +15,7 @@ const createSchema = z.object({
   duration: z.number().int().positive(),
   price: z.number().nonnegative(),
   image: z.string().optional(),
+  images: z.array(z.string()).optional(),
   professionalIds: z.array(z.string()).optional(),
 });
 

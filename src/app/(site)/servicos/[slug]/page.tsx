@@ -47,8 +47,19 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       </Link>
 
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-          <Image src={withBasePath(service.image || "/images/placeholders/svc-spa-1.png")} alt={service.name} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
+        <div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
+            <Image src={withBasePath(service.image || "/images/placeholders/svc-spa-1.png")} alt={service.name} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
+          </div>
+          {service.images.length > 1 && (
+            <div className="mt-3 grid grid-cols-3 gap-3">
+              {service.images.slice(0, 3).map((src, i) => (
+                <div key={`${src}-${i}`} className="relative aspect-square overflow-hidden rounded-xl">
+                  <Image src={withBasePath(src)} alt={`${service.name} — foto ${i + 1} (demonstrativa)`} fill sizes="150px" className="object-cover" />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div>

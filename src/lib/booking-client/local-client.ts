@@ -128,6 +128,7 @@ function buildCatalog(db: LocalDB): Catalog {
       duration: s.duration,
       price: s.price,
       image: s.image,
+      images: s.images ?? [],
       active: s.active,
       professionalIds: s.professionalIds,
     };
@@ -445,9 +446,10 @@ export class LocalBookingClient implements BookingClient {
     return { ok: true, data: null };
   }
 
-  async createService(data: { categoryId: string; name: string; slug: string; description: string; benefits?: string; importantInfo?: string; duration: number; price: number; image?: string; professionalIds?: string[] }): Promise<Result<string>> {
+  async createService(data: { categoryId: string; name: string; slug: string; description: string; benefits?: string; importantInfo?: string; duration: number; price: number; image?: string; images?: string[]; professionalIds?: string[] }): Promise<Result<string>> {
     const db = loadDB();
     const id = randomId("svc");
+    const image = data.image ?? "/images/placeholders/svc-spa-1.png";
     db.services.push({
       id,
       categoryId: data.categoryId,
@@ -458,7 +460,8 @@ export class LocalBookingClient implements BookingClient {
       importantInfo: data.importantInfo ?? "",
       duration: data.duration,
       price: data.price,
-      image: data.image ?? "/images/placeholders/svc-spa-1.png",
+      image,
+      images: data.images && data.images.length > 0 ? data.images : [image],
       active: true,
       professionalIds: data.professionalIds ?? [],
     });

@@ -24,6 +24,7 @@ export interface CatalogService {
   duration: number;
   price: number;
   image: string | null;
+  images: string[];
   active: boolean;
   professionalIds: string[];
 }
