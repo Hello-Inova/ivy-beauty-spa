@@ -12,7 +12,11 @@ export default function Hero() {
         alt="Fachada e recepção do Ivy Beauty & Spa"
       />
 
-      <div className="container-ivy relative flex min-h-[86vh] flex-col items-start justify-end gap-6 py-20 sm:min-h-[80vh] sm:items-center sm:text-center">
+      {/* pointer-events-none so the parts of this box with no visible
+          content (it spans the full hero height/width for layout purposes)
+          let clicks fall through to the background photo underneath;
+          re-enabled per-element on the actual interactive children. */}
+      <div className="container-ivy relative flex min-h-[86vh] flex-col items-start justify-end gap-6 py-20 pointer-events-none sm:min-h-[80vh] sm:items-center sm:text-center">
         <span className="eyebrow flex items-center gap-2 text-blush">
           <Sparkles size={14} /> Beleza & Bem-estar
         </span>
@@ -20,7 +24,7 @@ export default function Hero() {
           {BUSINESS_INFO.name}
         </h1>
         <p className="max-w-lg text-base text-cream/85 sm:text-lg">{BUSINESS_INFO.tagline}</p>
-        <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+        <div className="pointer-events-auto mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
           <Link href="/agendamento" className="btn-primary text-base">
             Agendar agora
           </Link>
