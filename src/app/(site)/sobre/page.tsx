@@ -6,6 +6,7 @@ import { BUSINESS_INFO } from "@/data/seed-data";
 import { getCatalog } from "@/lib/catalog.server";
 import { ensureDynamic } from "@/lib/force-dynamic.server";
 import { withBasePath } from "@/lib/demo-mode";
+import TeamGrid from "@/components/site/TeamGrid";
 
 export const metadata: Metadata = {
   title: "Sobre nós",
@@ -15,7 +16,6 @@ export const metadata: Metadata = {
 export default async function SobrePage() {
   await ensureDynamic();
   const catalog = await getCatalog();
-  const professionals = catalog.professionals.filter((p) => p.active);
 
   return (
     <div>
@@ -35,25 +35,7 @@ export default async function SobrePage() {
         </div>
       </section>
 
-      {professionals.length > 0 && (
-        <section className="bg-blush-soft py-16">
-          <div className="container-ivy">
-            <span className="eyebrow">Nossa equipe</span>
-            <h2 className="section-title mt-3">Profissionais</h2>
-            <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-              {professionals.map((p) => (
-                <div key={p.id} className="text-center">
-                  <div className="relative mx-auto aspect-[4/5] w-full max-w-[180px] overflow-hidden rounded-2xl">
-                    <Image src={withBasePath(p.photo || "/images/placeholders/pro-1.png")} alt={p.name} fill sizes="180px" className="object-cover" />
-                  </div>
-                  <h3 className="mt-3 font-display text-base text-charcoal">{p.name}</h3>
-                  {p.description && <p className="mt-1 text-xs text-charcoal-soft">{p.description}</p>}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <TeamGrid initialCatalog={catalog} />
 
       <section className="container-ivy py-16 text-center">
         <h2 className="section-title">Vamos cuidar de você</h2>

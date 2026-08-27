@@ -16,7 +16,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
-      <ServicesPreview services={catalog.services} />
+      <ServicesPreview catalog={catalog} />
       <AboutSection />
       <GallerySection />
       <TestimonialsSection />
