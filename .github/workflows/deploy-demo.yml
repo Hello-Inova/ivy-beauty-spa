@@ -1,0 +1,61 @@
+name: Deploy demo to GitHub Pages
+
+# Builds the static "modo demonstração" export (localStorage-only, no
+# database) and publishes it to GitHub Pages. This workflow never touches
+# the full/server mode (Postgres) — that mode is deployed separately (e.g.
+# Vercel, Render, a VPS) and is not affected by this file.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build static demo export
+        run: npm run build:demo
+        env:
+          NEXT_PUBLIC_DEMO_MODE: "true"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
