@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Camera } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/seed-data";
+import { withBasePath } from "@/lib/demo-mode";
 
 const POSTS = [
   "/images/placeholders/gallery-4.png",
@@ -31,7 +32,7 @@ export default function InstagramSection() {
             rel="noopener noreferrer"
             className="group relative aspect-square overflow-hidden rounded-xl"
           >
-            <Image src={src} alt="Publicação demonstrativa do Instagram" fill sizes="200px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
+            <Image src={withBasePath(src)} alt="Publicação demonstrativa do Instagram" fill sizes="200px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
             <div className="absolute inset-0 flex items-center justify-center bg-charcoal/0 transition-colors group-hover:bg-charcoal/40">
               <Camera size={22} className="text-white opacity-0 transition-opacity group-hover:opacity-100" />
             </div>

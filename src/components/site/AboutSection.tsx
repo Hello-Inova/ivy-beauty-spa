@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, Leaf, Sparkles, Users } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/seed-data";
+import { withBasePath } from "@/lib/demo-mode";
 
 const PILLARS = [
   { icon: Heart, label: "Autocuidado" },
@@ -16,7 +17,7 @@ export default function AboutSection() {
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <div className="relative order-2 aspect-[4/5] overflow-hidden rounded-3xl lg:order-1">
           <Image
-            src="/images/placeholders/gallery-2.png"
+            src={withBasePath("/images/placeholders/gallery-2.png")}
             alt="Ambiente da Ivy Beauty e Spa (imagem demonstrativa)"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"

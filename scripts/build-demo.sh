@@ -13,6 +13,23 @@ cd "$(dirname "$0")/.."
 
 export NEXT_PUBLIC_DEMO_MODE=true
 
+# GitHub Pages project sites are served from "/<repo-name>/", not the
+# domain root — every root-relative asset URL needs that prefix. Next's own
+# basePath/assetPrefix config (in next.config.demo.ts) handles this
+# automatically for _next/static/*, next/image and next/link, but raw
+# <img> tags (logo, hero, placeholder photos — see src/lib/demo-mode.ts's
+# withBasePath()) need it available as NEXT_PUBLIC_BASE_PATH so it gets
+# inlined into the client bundle at build time. Compute it once here so
+# next.config.demo.ts and the app code agree on the same value.
+if [ -z "${NEXT_PUBLIC_BASE_PATH:-}" ] && [ -n "${GITHUB_REPOSITORY:-}" ]; then
+  repo_name="${GITHUB_REPOSITORY#*/}"
+  case "$repo_name" in
+    *.github.io) ;; # served at the domain root — no basePath
+    *) export NEXT_PUBLIC_BASE_PATH="/${repo_name}" ;;
+  esac
+fi
+echo "NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH:-<empty>}"
+
 # These are moved OUTSIDE the project tree (not just renamed in place) so
 # TypeScript's `**/*.ts` include glob in tsconfig.json does not still pick
 # them up and type-check them against a route-types file that (correctly)

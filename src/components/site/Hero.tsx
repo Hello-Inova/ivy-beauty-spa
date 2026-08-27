@@ -2,13 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { Sparkles } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/seed-data";
+import { withBasePath } from "@/lib/demo-mode";
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-charcoal">
       <div className="absolute inset-0">
         <Image
-          src="/images/placeholders/hero.png"
+          src={withBasePath("/images/placeholders/hero.png")}
           alt="Ivy Beauty e Spa — imagem de destaque demonstrativa"
           fill
           priority

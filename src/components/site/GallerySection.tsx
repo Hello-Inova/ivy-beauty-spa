@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { withBasePath } from "@/lib/demo-mode";
 
 const GALLERY_ITEMS = [
   { src: "/images/placeholders/gallery-1.png", label: "Ambiente" },
@@ -28,7 +29,7 @@ export default function GallerySection({ compact = true }: { compact?: boolean }
           {GALLERY_ITEMS.map((item) => (
             <div key={item.src} className="group relative aspect-square overflow-hidden rounded-2xl">
               <Image
-                src={item.src}
+                src={withBasePath(item.src)}
                 alt={`${item.label} — imagem demonstrativa`}
                 fill
                 sizes="(max-width: 640px) 50vw, 25vw"
